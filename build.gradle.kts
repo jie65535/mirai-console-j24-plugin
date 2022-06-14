@@ -6,10 +6,14 @@ plugins {
     id("net.mamoe.mirai-console") version "2.11.1"
 }
 
-group = "org.example"
+group = "top.jie65535"
 version = "0.1.0"
 
 repositories {
     maven("https://maven.aliyun.com/repository/public") // 阿里云国内代理仓库
     mavenCentral()
+}
+
+dependencies {
+    implementation("net.objecthunter:exp4j:0.4.8")
 }

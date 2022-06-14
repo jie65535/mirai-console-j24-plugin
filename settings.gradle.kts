@@ -1,1 +1,1 @@
-rootProject.name = "mirai-console-plugin-template"
+rootProject.name = "mirai-console-j24-plugin"

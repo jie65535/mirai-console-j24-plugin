@@ -1,5 +1,3 @@
-# mirai-console-plugin-template
+# mirai-console-j24-plugin
 
-[Mirai Console](https://github.com/mamoe/mirai-console) 插件模板, 使用 Kotlin + Gradle.
-
-[如何使用](https://github.com/project-mirai/how-to-use-plugin-template)
+24点计算器
