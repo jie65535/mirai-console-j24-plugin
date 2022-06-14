@@ -21,8 +21,10 @@ class Point24 {
     )
 
     fun evaluate(expression: String): Double {
+        val expr = expression.replace('（', '(').replace('）', ')')
+
         val tokens = ShuntingYard.convertToRPN(
-            expression,
+            expr,
             null,
             mapOf(),
             null,
@@ -47,7 +49,7 @@ class Point24 {
         if (nums.isNotEmpty())
             throw IllegalArgumentException("必须使用所有数值")
 
-        return ExpressionBuilder(expression)
+        return ExpressionBuilder(expr)
             .implicitMultiplication(false)
             .build()
             .evaluate()

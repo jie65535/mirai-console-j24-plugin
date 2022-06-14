@@ -30,13 +30,14 @@ object PluginMain : KotlinPlugin(
                     "请用以上四组数字组合成结果为24的算式，以“答”开头验证"
             }
             startsWith("答") quoteReply {
-                val game = games[this.sender.id]
+                val game = games[sender.id]
                 if (game == null) {
                     "你还没有抽数字哦，说“24点”来开始游戏吧"
                 } else {
                     try {
                         val result = game.evaluate(message.contentToString().removePrefix("答").trim())
                         if (result == 24.0) {
+                            games.remove(sender.id)
                             "恭喜你，答对了！"
                         } else {
                             "答错了，计算结果为 $result"
