@@ -43,7 +43,9 @@ class Point24 {
                 if (i < nums.size)
                     nums.removeAt(i)
                 else
-                    throw IllegalArgumentException("不能使用未允许数值")
+                    throw IllegalArgumentException("不能使用未得到的数值")
+            } else if (token.type == Token.TOKEN_FUNCTION.toInt()) {
+                throw IllegalArgumentException("禁止使用函数哦")
             }
         }
         if (nums.isNotEmpty())
