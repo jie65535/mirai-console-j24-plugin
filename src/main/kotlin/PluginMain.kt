@@ -20,10 +20,9 @@ object PluginMain : KotlinPlugin(
 
     override fun onEnable() {
         logger.info { "Plugin loaded" }
-        //配置文件目录 "${dataFolder.absolutePath}/"
         val eventChannel = GlobalEventChannel.parentScope(this)
         eventChannel.subscribeMessages {
-            contains("24点") quoteReply {
+            startsWith("24点") quoteReply {
                 val game = Point24()
                 games[this.sender.id] = game
                 "你抽到了 [${game.points[0]}] [${game.points[1]}] [${game.points[2]}] [${game.points[3]}]\n" +

@@ -1,12 +1,45 @@
 package top.jie65535.j24
 
 import net.objecthunter.exp4j.ExpressionBuilder
+import net.objecthunter.exp4j.operator.Operator
 import net.objecthunter.exp4j.shuntingyard.ShuntingYard
 import net.objecthunter.exp4j.tokenizer.NumberToken
 import net.objecthunter.exp4j.tokenizer.Token
 import kotlin.random.Random
 
 class Point24 {
+    companion object {
+        val myOperators = listOf(
+            object : Operator(">>", 2, true, Operator.PRECEDENCE_ADDITION - 1) {
+                override fun apply(vararg args: Double): Double {
+                    return (args[0].toInt() shr args[1].toInt()).toDouble()
+                }
+            },
+            object : Operator("<<", 2, true, Operator.PRECEDENCE_ADDITION - 1) {
+                override fun apply(vararg args: Double): Double {
+                    return (args[0].toInt() shl args[1].toInt()).toDouble()
+                }
+            },
+            object : Operator("&", 2, true, Operator.PRECEDENCE_ADDITION - 2) {
+                override fun apply(vararg args: Double): Double {
+                    return (args[0].toInt() and args[1].toInt()).toDouble()
+                }
+            },
+            object : Operator("|", 2, true, Operator.PRECEDENCE_ADDITION - 3) {
+                override fun apply(vararg args: Double): Double {
+                    return (args[0].toInt() or args[1].toInt()).toDouble()
+                }
+            },
+        )
+        private val myOperatorMap: Map<String, Operator>
+        init {
+            val m = mutableMapOf<String, Operator>()
+            for (opt in myOperators)
+                m[opt.symbol] = opt
+            myOperatorMap = m
+        }
+    }
+
     var points = genPoints()
 
     fun regenPoints() {
@@ -23,10 +56,13 @@ class Point24 {
     fun evaluate(expression: String): Double {
         val expr = expression.replace('（', '(').replace('）', ')')
 
+        if (expr.contains('%'))
+            throw IllegalArgumentException("禁止使用%运算符")
+
         val tokens = ShuntingYard.convertToRPN(
             expr,
             null,
-            mapOf(),
+            myOperatorMap,
             null,
             false
         )
@@ -52,6 +88,7 @@ class Point24 {
             throw IllegalArgumentException("必须使用所有数值")
 
         return ExpressionBuilder(expr)
+            .operator(myOperators)
             .implicitMultiplication(false)
             .build()
             .evaluate()
