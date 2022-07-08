@@ -25,7 +25,12 @@ class Point24 {
                     return (args[0].toInt() and args[1].toInt()).toDouble()
                 }
             },
-            object : Operator("|", 2, true, Operator.PRECEDENCE_ADDITION - 3) {
+            object : Operator("^", 2, true, Operator.PRECEDENCE_ADDITION - 3) {
+                override fun apply(vararg args: Double): Double {
+                    return (args[0].toInt() xor args[1].toInt()).toDouble()
+                }
+            },
+            object : Operator("|", 2, true, Operator.PRECEDENCE_ADDITION - 4) {
                 override fun apply(vararg args: Double): Double {
                     return (args[0].toInt() or args[1].toInt()).toDouble()
                 }
