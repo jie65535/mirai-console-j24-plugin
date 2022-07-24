@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "top.jie65535"
-version = "0.1.1"
+version = "0.1.2"
 
 repositories {
     maven("https://maven.aliyun.com/repository/public") // 阿里云国内代理仓库
