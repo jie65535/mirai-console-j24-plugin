@@ -61,7 +61,7 @@ object PluginMain : KotlinPlugin(
                         // 拼接排行榜
                         val sb = StringBuilder()
                         sb.appendLine("[均时榜]")
-                        sb.append(g.entries.sortedBy { it.value.avgTime }.take(3).joinToString("\n") {
+                        sb.append(g.entries.filter { it.value.avgTime != 0.0 }.sortedBy { it.value.avgTime }.take(3).joinToString("\n") {
                             "${df.format(it.value.avgTime)}s | ${group[it.key]?.nameCardOrNick ?: "侠名"}"
                         }).appendLine().appendLine()
                         sb.appendLine("[速度榜]")
