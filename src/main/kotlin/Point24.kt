@@ -71,6 +71,7 @@ class Point24 {
         val expr = expression
             .replace('（', '(')
             .replace('）', ')')
+            .replace('X', '*')
             .replace('x', '*')
             .replace('×', '*')
             .replace('÷', '/')
